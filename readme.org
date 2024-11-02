@@ -1,2 +1,16 @@
+:+title: My Emacs Configuration
+
 * My emacs config
   More information coming soon.
+
+* *Welcome*
+
+I switch to Emacs from Neovima as main editor, I am trying to build my own configuration from scratch. This is a note for my configuration.
+Always in WIP for now
+
+
+* *Platform*
+
+* *Package*
+
+* *Startup Performance*
