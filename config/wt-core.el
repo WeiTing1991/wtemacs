@@ -36,7 +36,6 @@
 ;;
 ;;(define-key global-map (kbd "C-w") 'open-all-recent-files)
 
-
 ;; Toggle between split windows and a single window
 (defun wt-toggle-windows-split()
   (interactive)
@@ -57,20 +56,20 @@
       (apply orig-fun args)
     (message "Cancelled exit.")))
 
+(defun wt/open-note-in-dired ()
+  "Set the note dir by system"
+  (interactive)
+  (cond
+   ((eq system-type 'darwin)
+    (setq  wt/note-dir "/Users/weitingchen/Library/Mobile Documents/iCloud~md~obsidian/Documents/weitingchen")
+    )
+   ((eq system-type 'windows-nt)
+    (setq  wt/note-dir "~/iCloudDrive/iCloud~md~obsidian/weitingchen/"))
+   )
+  (dired wt/note-dir)
+  )
 
-;; (defun wt/open-note-in-dired ()
-;;   "Set the note dir by system"
-;;   (interactive)
-;;   (cond
-;;    ((eq system-type 'darwin)
-;;     (setq  wt/note-dir "/Users/weitingchen/Library/Mobile Documents/iCloud~md~obsidian/Documents/weitingchen")
-;;     )
-;;    ((eq system-type 'windows-nt)
-;;     (setq  wt/note-dir "~/iCloudDrive/iCloud~md~obsidian/weitingchen/"))
-;;    )
-;;   (dired wt/note-dir)
-;;   )
-
+;; TODO
 ;; (defun wt/find-file-preview ()
 ;;   (interactive)
 ;;   (let ((consult-ripgrep-command "rg --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))
@@ -79,7 +78,7 @@
 
 ;; TODO
 ;; https://github.com/doomemacs/doomemacs/blob/master/modules/config/default/+evil-bindings.el
-;; https://github.com/daviwil/dotfiles/blob/master/.emacs.d/modules/dw-keys-evil.e
+;; https://github.com/daviwil/dotfiles/blob/master/.emacs.d/modules/dw-keys-evil.el
 (use-package drag-stuff
   :straight t
   :after evil
@@ -258,8 +257,8 @@
   ;; dir
   (wt/leader-keys
     "d" '(:ignore t :wk "Dir")
-    "dd" '(dired :wk "Open dired")
-    "dj" '(dired-jump :wk "Open dired jump current")
+    "dd" '(dired-jump :wk "Open dired jump current")
+    "dj" '(dired :wk "Open dired")
     )
 
   ;; toggle
@@ -281,6 +280,8 @@
   ;;   )
 
   )
+(use-package hydra
+  :straight t)
 
 ;; hightlight yank
 (use-package evil-goggles
@@ -298,6 +299,15 @@
 ;; clean white space
 (add-hook 'before-save-hook 'whitespace-cleanup)
 
+
+(use-package exec-path-from-shell
+  :if (eq wt-os-type 'mac)
+  :straight t
+  :init
+  (exec-path-from-shell-initialize)
+  :custom
+  (exec-path-from-shell-arguments '("-l"))
+)
 
 (use-package diminish
   :straight t

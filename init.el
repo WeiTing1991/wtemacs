@@ -1,7 +1,6 @@
 ;;; init.el ---   -*- lexical-binding: t -*-
 
-;;; code
-
+;;; code:
 ;; straight package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -122,7 +121,7 @@
   (revert-buffer t t)
   )
 
-;; load theme and font
+; load theme and font
 (wt/set-font-and-background)
 (wt/set-dark-theme)
 
@@ -134,8 +133,9 @@
            :inherit 'nano-face-faded)) "Fallback")
 
 ;; TODO check??
-(require 'disp-table)
 ;; Fix bug on OSX in term mode & zsh (spurious % after each command)
+
+;; (require 'disp-table)
 ;; (add-hook 'term-mode-hook
 ;;           (lambda () (setq buffer-display-table (make-display-table))))
 ;; (setq x-underline-at-descent-line t)
@@ -153,25 +153,30 @@
 ;; No ugly button for checkboxes
 (setq widget-image-enable nil)
 
+;; BUG: take longer
 ;; faster startup time
-(defun update-load-path (&rest _)
-  "Update `load-path'."
-  (dolist (dir '("config"))
-    (push (expand-file-name dir user-emacs-directory) load-path)))
-
-;; (add-to-list 'load-path "~/.emacs.d/config/")
-
+;; (defun update-load-path (&rest _)
+;;   "Update `load-path'."
+;;   (dolist (dir '("config"))
+;;     (push (expand-file-name dir user-emacs-directory) load-path)))
 ;; load package
-(update-load-path)
+;; (update-load-path)
+
+(add-to-list 'load-path "~/.emacs.d/config/")
 
 (require 'wt-base)
 (require 'wt-core)
 (require 'wt-ui)
 (require 'wt-cmd-system)
-;; (require 'wt-file-system)
-;; (require 'wt-app)
-;; (require 'wt-lsp)
-
+(require 'wt-term)
+(require 'wt-file-system)
+(require 'wt-lsp)
+(require 'wt-prog)
+(require 'wt-app)
+(require 'wt-org)
+(require 'wt-git-tool)
+;; TODO
+;; (require 'wt-md)
 
 ;; set title
 (setq frame-title-format
@@ -194,6 +199,7 @@
        (float-time
         (time-subtract after-init-time before-init-time)))
      gcs-done))
+
 (add-hook 'emacs-startup-hook #'wt/display-startup-time)
 
 ;; Disable backup files
@@ -206,7 +212,6 @@
 ;;   `((".*" . ,(concat user-emacs-directory "backups")))
 ;;   auto-save-file-name-transforms
 ;;   `((".*" ,(concat user-emacs-directory "backups") t)))
-
 
 (provide 'init)
 ;;; init.el ends here

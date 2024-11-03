@@ -1,16 +1,70 @@
 :+title: My Emacs Configuration
 
-* My emacs config
+* My Emacs config
   More information coming soon.
 
 * *Welcome*
 
-I switch to Emacs from Neovima as main editor, I am trying to build my own configuration from scratch. This is a note for my configuration.
+I switch to Emacs from Neovim as main editor, I am trying to build my own configuration from scratch. This is a note for my configuration.
 Always in WIP for now
 
+* *Startup Performance*
 
 * *Platform*
 
 * *Package*
 
-* *Startup Performance*
+** Package management
+
+early-init
+
+#+begin_src emacs-lisp
+
+garbage collection
+
+#+end_src
+
+init.el
+- straight
+
+#+begin_src emacs-lisp
+
+theme and font
+
+#+end_src
+
+base.el
+- straight
+
+#+begin_src emacs-lisp
+
+theme and font
+
+#+end_src
+
+
+evil.el
+
+-evil
+#+begin_src emacs-lisp
+
+theme and font
+
+#+end_src
+
+** *Org Mode*
+
+[[./theme/bella-base-color.el]]
+
+** Label
+- list
+
+  - [ ]
+  - [ ]
+  - [ ]
+  - [ ]
+
+** TODO
+** DONE
+** DOING
+** NOTE

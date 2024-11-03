@@ -30,7 +30,7 @@
   (setq initial-buffer-choice nil)
 
   ;; No frame title
-  ;; (setq frame-title-format nil)
+  (setq frame-title-format nil)
 
   ;; No popup windows
   ;; (setq pop-up-windows nil)
@@ -79,7 +79,8 @@
   (setq display-line-numbers-type 'relative)
   (setq-default display-line-numbers-width 5)
 
-  ;; (set-default 'truncate-lines t)
+  ;; wrap the long line
+  (set-default 'truncate-lines t)
 
   ;; default editorconfig
   (show-paren-mode 1)
@@ -92,10 +93,9 @@
   (setq-default indent-tabs-mode nil)
   (setq-default tab-width 2)
   (setq-default indent-width #'wt-indent-width)
-  (setq-default standard-indent 2)        ;; Set standard indentation to 2 spaces
+  (setq-default standard-indent 2)
 
-  (setq-default split-height-threshold  160
-    split-width-threshold   5) ; the reasonable limit for horizontal splits
+  (setq-default split-height-threshold  160 split-width-threshold   5) ; the reasonable limit for horizontal splits
 
   (setq jit-lock-stealth-time nil)
   (setq jit-lock-defer-time nil)
@@ -165,7 +165,6 @@
     (setq switch-to-prev-buffer-skip-regexp "\\*[^*]+\\*")
    )
   )
-
 
 (provide 'wt-base)
 ;;; wt-base.el ends here

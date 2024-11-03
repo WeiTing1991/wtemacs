@@ -1,7 +1,6 @@
-;;; cmd-system.el --- command for system. -*- lexical-binding: t -*-
+;;; wt-cmd-system.el --- command for system. -*- lexical-binding: t -*-
 
 ;;; code
-
 ;; https://github.com/minad/vertico
 (use-package vertico
   :bind (:map vertico-map
@@ -181,9 +180,11 @@
   (setq consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
                           "--full-path --color=never --hidden"
                           "--exclude" ".git"))
+
   (setq consult-grep-args '("grep" (consult--grep-exclude-args)
       "--null --line-buffered --hidden --color=never --ignore-case\
       --with-filename --line-number -I -r"))
+
   (setq consult-ripgrep-args
     "rg --null --hidden --line-buffered --color=never --max-columns=1000 --path-separator /\
     --smart-case --no-heading --with-filename --line-number --search-zip"
@@ -204,6 +205,16 @@
   (marginalia-mode)
  )
 
+;; https://kristofferbalintona.me/posts/202202211546/
+(use-package orderless
+  :demand t
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic partial-completion))))
+  :custom
+  (orderless-component-separator #'orderless-escapable-split-on-space)
+)
+
 ;; faster sorting
 ;; (use-package vertico-prescient
 ;;              :straight t
@@ -215,15 +226,5 @@
 ;;              (prescient-persist-mode 1)
 ;;              )
 
-
-;; TODO Check the oderless
-;; https://kristofferbalintona.me/posts/202202211546/
-(use-package orderless
-  :demand t
-  :init
-  (setq completion-styles '(orderless basic)
-        (orderless-component-separator #'orderless-escapable-split-on-space)
-        completion-category-overrides '((file (styles basic partial-completion))))
-  )
-(provide 'cmd-system)
-;;; cmd-system.el ends here
+(provide 'wt-cmd-system)
+;;; wt-cmd-system.el ends here
