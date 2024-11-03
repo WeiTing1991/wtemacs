@@ -1,18 +1,19 @@
 ;;; init.el ---   -*- lexical-binding: t -*-
 
 ;;; code
+
 ;; straight package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
+  "straight/repos/straight.el/bootstrap.el"
+  (or (bound-and-true-p straight-base-dir)
+      user-emacs-directory)))
       (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el" 'silent 'inhibit-cookies)
+  (url-retrieve-synchronously
+   "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el" 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -74,10 +75,11 @@
 
 ;; load theme
 (add-to-list 'load-path "~/.emacs.d/themes/")
+(add-to-list 'load-path "~/.emacs.d/colors/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
+(require 'bella-base-color)
 (require 'nord-theme)
-(require 'bella-color-theme)
 
 (defun wt/set-dark-theme ()
   "Set wt dark theme."
@@ -108,14 +110,14 @@
   "Toggle the theme."
   (interactive)
   (cond ((eq (car custom-enabled-themes) 'nord)
-         (mapc #'disable-theme custom-enabled-themes)
-         (wt/set-light-theme)
-         )
-        ((eq (car custom-enabled-themes) 'modus-operandi)
-         (mapc #'disable-theme custom-enabled-themes)
-         (wt/set-dark-theme)
-         )
-        )
+   (mapc #'disable-theme custom-enabled-themes)
+   (wt/set-light-theme)
+   )
+  ((eq (car custom-enabled-themes) 'modus-operandi)
+   (mapc #'disable-theme custom-enabled-themes)
+   (wt/set-dark-theme)
+   )
+  )
   (save-buffer)
   (revert-buffer t t)
   )
@@ -129,10 +131,10 @@
 
 ;; Fall back font for glyph missing in Roboto
 (defface fallback '((t :family "Roboto"
-                       :inherit 'nano-face-faded)) "Fallback")
+           :inherit 'nano-face-faded)) "Fallback")
 
 ;; TODO check??
-;; (require 'disp-table)
+(require 'disp-table)
 ;; Fix bug on OSX in term mode & zsh (spurious % after each command)
 ;; (add-hook 'term-mode-hook
 ;;           (lambda () (setq buffer-display-table (make-display-table))))
@@ -149,7 +151,7 @@
 (window-divider-mode 1)
 
 ;; No ugly button for checkboxes
-;; (setq widget-image-enable nil)
+(setq widget-image-enable nil)
 
 ;; faster startup time
 (defun update-load-path (&rest _)
@@ -157,25 +159,23 @@
   (dolist (dir '("config"))
     (push (expand-file-name dir user-emacs-directory) load-path)))
 
+;; (add-to-list 'load-path "~/.emacs.d/config/")
+
 ;; load package
 (update-load-path)
 
 (require 'wt-base)
 (require 'wt-core)
-
-;; (load-file (expand-file-name "./config/core.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/ui.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/cmd-system.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/file-system.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/terminals.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/app.el" user-emacs-directory))
-;; (load-file (expand-file-name "./config/lsp.el" user-emacs-directory))
+(require 'wt-ui)
+(require 'wt-cmd-system)
+;; (require 'wt-file-system)
+;; (require 'wt-app)
+;; (require 'wt-lsp)
 
 
 ;; set title
 (setq frame-title-format
-      '("wtEmacs v1.00-" emacs-version " - " "%b"
-        )
+      '("wtEmacs v1.00-" emacs-version " - " "%b")
       )
 
 ;; for debug
@@ -190,10 +190,10 @@
 
 (defun wt/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
+     (format "%.2f seconds"
+       (float-time
+        (time-subtract after-init-time before-init-time)))
+     gcs-done))
 (add-hook 'emacs-startup-hook #'wt/display-startup-time)
 
 ;; Disable backup files

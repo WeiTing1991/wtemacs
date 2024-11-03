@@ -16,10 +16,6 @@
   ;; (setq sentence-end-double-space nil)
   ;; (setq show-trailing-whitespace t) ;; self-explanatory
 
-  ;; Don't persist a custom file
-  ;; (setq custom-file (make-temp-file "")) ; use a temp file as a placeholder
-  ;; (setq custom-safe-themes t)            ; mark all themes as safe, since we can't persist now
-
   (setq enable-local-variables :all)     ; fix =defvar= warnings
   (setq delete-by-moving-to-trash t) ;; use trash-cli rather than rm when deleting files.
 
@@ -45,12 +41,12 @@
 
   ;; Text mode is initial mode
   (setq initial-major-mode 'text-mode)
-
   ;; Text mode is default major mode
-  ;; (setq default-major-mode 'text-mode)
+  (setq default-major-mode 'text-mode)
 
   ;; Moderate font lock
-  (setq font-lock-maximum-decoration nil)
+  ;; will change the syntax highlihght
+  ;; (setq font-lock-maximum-decoration nil)
   ;; No limit on font lock
   (setq font-lock-maximum-size nil)
 
@@ -99,7 +95,7 @@
   (setq-default standard-indent 2)        ;; Set standard indentation to 2 spaces
 
   (setq-default split-height-threshold  160
-                split-width-threshold   5) ; the reasonable limit for horizontal splits
+    split-width-threshold   5) ; the reasonable limit for horizontal splits
 
   (setq jit-lock-stealth-time nil)
   (setq jit-lock-defer-time nil)
@@ -122,17 +118,14 @@
 ;; ;; No toolbar
 ;; (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
-
-
 ;; Mac specific
 (when (eq system-type 'darwin)
   (setq ns-use-native-fullscreen t
-        mac-option-key-is-meta nil
-        mac-command-key-is-meta t
-        mac-command-modifier 'meta
-        mac-option-modifier nil
-        mac-use-title-bar nil))
-
+  mac-option-key-is-meta nil
+  mac-command-key-is-meta t
+  mac-command-modifier 'meta
+  mac-option-modifier nil
+  mac-use-title-bar nil))
 
 (set-charset-priority 'unicode)
 

@@ -1,4 +1,4 @@
-;;; bella-color-theme.el  -*- lexical-binding: t -*-
+;;; bella-base-color.el
 
 ;; ---------------------------------------------------------------------
 ;; Copyright (C) 2024
@@ -18,25 +18,26 @@
 ;; ---------------------------------------------------------------------
 
 ;;; code:
-
-;; reference
 ;; https://www.nordtheme.com/#palettes-modularity
 ;; https://github.com/thongpv87/rose-pine-emacs/blob/master/rose-pine-moon-theme.el
 
 (defun bella-color-set ()
-  "Apply bella theme base."
+  "Apply dark bella theme base."
   ;; Colors from Nord theme at https://www.nordtheme.com
   ;; Colors from Rose Pine theme at https://rosepinetheme.com/palette/
 
-  ;; https://www.color-hex.com/color/2e3440
-
   (defvar bella-color-black "#090a0c")
   (defvar bella-color-black-blue "#2E3440")
+  (defvar bella-color-base " #171a20")
 
-  (defvar bella-color-white "#D8DEE9")
-  (defvar bella-color-base "#232136")
+  (defvar bella-color-white "#ECEFF4")
+
   (defvar bella-color-high "#393552")
-  (defvar bella-color-grey"#4C566A")
+
+  (defvar bella-color-gold "#f6c177")
+  (defvar bella-color-love "#eb6f92")
+  (defvar bella-color-grey "#6e6a86")
+
 
   ;; Rose Pine Moon
   ;; (text       "#e0def4")  ;; foreground
@@ -84,5 +85,5 @@
   )
 (bella-color-set)
 
-(provide 'bella-color-theme)
+(provide 'bella-base-color)
 ;;; bella-base-collor.el ends here

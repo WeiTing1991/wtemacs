@@ -60,7 +60,6 @@
 
 ;; Minimal UI
 ;; Define a list of new frame parameters
-
 (setq wt-frame-params
       '(
         (min-height . 1)
@@ -106,4 +105,3 @@
 
 (provide 'early-init)
 ;;; early-init.el ends here
-
