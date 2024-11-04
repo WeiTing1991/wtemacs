@@ -3,6 +3,8 @@
 ;;; code:
 (use-package term
   :straight nil
+  ;; :command (term)
+  :defer t
   :config
   (when (eq wt-os-type 'window)
     (setq explicit-shell-file-name "C:/Program Files/PowerShell/7/pwsh.exe")
@@ -21,9 +23,9 @@
 ;; NOTE
 ;; https://github.com/tompurl/dot-emacs/blob/master/emacs-init.org#spell-checking
 ;; for windows settings
-
 (use-package xterm-color
   :straight t
+  :defer t
   :after eshell
   )
 

@@ -32,9 +32,6 @@
   ;; (set-face-background 'fringe bella-color-base)
   )
 
-(wt/leader-keys
-  "mo" '(olivetti-mode :wk "writing focus mode")
-  )
 
 ;; TODO:
 ;; pandoc
@@ -60,7 +57,6 @@ Login to Copilot by M-x copilot-login. You can also check the status by M-x copi
 ;; https://github.com/s-kostyaev/ellama
 (use-package copilot
   :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-  :straight t
   :defer t
   :config
   ;; (define-key 'insert copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
@@ -74,9 +70,16 @@ Login to Copilot by M-x copilot-login. You can also check the status by M-x copi
 
   )
 
-(wt/system-key
-  "c" '(copilot-mode :wk "Enable copilot mode")
-  )
+;; keybinding
+(with-eval-after-load 'evil
+
+  (wt/leader-keys
+    "mo" '(olivetti-mode :wk "writing focus mode")
+    )
+  (wt/system-key
+    "c" '(copilot-mode :wk "Enable copilot mode")
+    )
+)
 
 (provide 'wt-app)
 ;;; wt-app.el ends here

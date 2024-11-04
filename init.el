@@ -5,14 +5,14 @@
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
-  "straight/repos/straight.el/bootstrap.el"
-  (or (bound-and-true-p straight-base-dir)
-      user-emacs-directory)))
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
       (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-  (url-retrieve-synchronously
-   "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el" 'silent 'inhibit-cookies)
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el" 'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -46,27 +46,24 @@
     (defvar wt-default-variable-font-size 140)
     (defvar wt-frame-transparency '(98 . 90))
 
-    (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
     (set-face-attribute 'fixed-pitch nil :font "SauceCodePro Nerd Font" :height wt-default-variable-font-size :weight 'regular)
     (set-face-attribute 'variable-pitch nil :font "SauceCodePro Nerd Font" :height wt-default-variable-font-size :weight 'regular)
 
-  (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
-  (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
     )
-   ((eq wt-os-type 'window)
+   ((eq wt-os-type 'windows)
     (defvar  wt-default-font-size 100)
     (defvar  wt-default-variable-font-size 100)
     (defvar  wt-frame-transparency '(95 . 90))
     (setq inhibit-compacting-font-caches 1)
 
-    (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
     (set-face-attribute 'fixed-pitch nil :font "SauceCodePro NF" :height wt-default-variable-font-size :weight 'regular)
     (set-face-attribute 'variable-pitch nil :font "SauceCodePro NF" :height wt-default-variable-font-size :weight 'regular)
 
-  (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
-  (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
     )
    )
+   (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
+   (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
+   (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
 
   (when (display-graphic-p)
     (set-frame-font "RobotoMono Nerd Font" nil t))
@@ -78,7 +75,7 @@
   ;; (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
   ;; (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
 
-)
+  )
 
 ;; load theme
 (add-to-list 'load-path "~/.emacs.d/themes/")
@@ -117,19 +114,19 @@
   "Toggle the theme."
   (interactive)
   (cond ((eq (car custom-enabled-themes) 'nord)
-   (mapc #'disable-theme custom-enabled-themes)
-   (wt/set-light-theme)
-   )
-  ((eq (car custom-enabled-themes) 'modus-operandi)
-   (mapc #'disable-theme custom-enabled-themes)
-   (wt/set-dark-theme)
-   )
-  )
+         (mapc #'disable-theme custom-enabled-themes)
+         (wt/set-light-theme)
+         )
+        ((eq (car custom-enabled-themes) 'modus-operandi)
+         (mapc #'disable-theme custom-enabled-themes)
+         (wt/set-dark-theme)
+         )
+        )
   (save-buffer)
   (revert-buffer t t)
   )
 
-; load theme and font
+                                        ; load theme and font
 (wt/set-font-and-background)
 (wt/set-dark-theme)
 
@@ -138,7 +135,7 @@
 
 ;; Fall back font for glyph missing in Roboto
 (defface fallback '((t :family "Roboto"
-           :inherit 'nano-face-faded)) "Fallback")
+                       :inherit 'nano-face-faded)) "Fallback")
 
 ;; TODO check??
 ;; Fix bug on OSX in term mode & zsh (spurious % after each command)
@@ -175,14 +172,14 @@
 (require 'wt-base)
 (require 'wt-core)
 (require 'wt-ui)
-;;(require 'wt-cmd-system)
-;;(require 'wt-term)
-;;(require 'wt-file-system)
-;;(require 'wt-lsp)
-;;(require 'wt-prog)
-;;(require 'wt-app)
-;;(require 'wt-org)
-;;(require 'wt-git-tool)
+(require 'wt-cmd-system)
+(require 'wt-file-system)
+(require 'wt-term)
+(require 'wt-lsp)
+(require 'wt-prog)
+(require 'wt-app)
+(require 'wt-org)
+(require 'wt-git-tool)
 
 ;; TODO
 ;; (require 'wt-md)
@@ -204,10 +201,10 @@
 
 (defun wt/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
-     (format "%.2f seconds"
-       (float-time
-        (time-subtract after-init-time before-init-time)))
-     gcs-done))
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
 
 (add-hook 'emacs-startup-hook #'wt/display-startup-time)
 

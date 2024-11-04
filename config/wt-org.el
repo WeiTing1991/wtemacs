@@ -54,7 +54,6 @@
     )
    )
 
-
   ;; (set-face-attribute 'org-block nil    :inherit 'fixed-pitch)
   ;; (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
   ;; (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
@@ -69,9 +68,6 @@
   ;; (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
   ;; (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
   ;; (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch)
-
-
-
   )
 
 (defcustom wt-prettify-org-symbols-alist
@@ -156,6 +152,7 @@
         org-startup-indented t
         org-pretty-entities nil
         org-hide-emphasis-markers t
+        org-startup-with-inline-images t
 
         ;; (setq org-src-fontify-natively t) ;; Syntax highlighting in org src blocks
         ;; (setq org-highlight-latex-and-related '(native)) ;; Highlight inline LaTeX
@@ -164,7 +161,6 @@
         ;; (setq org-log-into-drawer t)
 
         ;; (setq org-hide-block-startup t)
-        ;; (setq org-startup-with-inline-images t)
         ;; (setq org-image-actual-width nil)
 
         )
@@ -191,7 +187,6 @@
    ((eq wt-os-type 'window)
     (setq org-directory  "~/iCloudDrive/iCloud~md~obsidian/weitingchen/"))
    ) ;; (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
-
 
   )
 
@@ -230,12 +225,11 @@
 
 (use-package org-download
   :straight t
-  :defer t
   :after org
   :config
   ;; (setq org-download-method 'Directory)
-  ;; (setq org-download-screenshot-method "convert clipboard: %s")
   (setq-default org-download-image-dir "~/image")
+  ;; (setq org-download-screenshot-method "convert clipboard: %s")
   )
 
 ;; Roam
@@ -244,7 +238,7 @@
   (cond
    ((eq wt-os-type 'mac)
     "/Users/weitingchen/Library/Mobile Documents/iCloud~md~obsidian/Documents/weitingchen/")
-   ((eq wt-os-type 'window)
+   ((eq wt-os-type 'windows)
     "~/iCloudDrive/iCloud~md~obsidian/weitingchen/")))
 
 (use-package org-roam

@@ -280,6 +280,7 @@
   ;;   )
 
   )
+
 (use-package hydra
   :straight t)
 
@@ -341,8 +342,6 @@
 ;;     (define-key evil-normal-state-map (kbd "C-r") 'undo-tree-redo))
 ;;   ;; (global-set-key (kbd "C-x u") 'undo-tree-visualize)
 ;; )
-
-
 
 ;; TODO help fuction
 ;; https://github.com/Wilfred/helpful

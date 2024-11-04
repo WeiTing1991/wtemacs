@@ -13,7 +13,7 @@
   )
 
 (use-package treesit
-  :straight (:type built-in)
+  :straight nil
   :defer t
   :hook (
          (bash-ts-mode
@@ -61,19 +61,21 @@
         )
   )
 
-(setq major-mode-remap-alist
-      '(
-        (bash-mode . bash-ts-mode)
-        (cc-mode . c-ts-mode)
-        (cc-mode . c++-ts-mode)
-        (python-mode . python-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode)
-        (yaml-mode . yaml-ts-mode)
-        (js2-mode . js-ts-mode)
-        (typescript-mode . typescript-ts-mode)
+(with-eval-after-load 'lsp-mode
+  (setq major-mode-remap-alist
+        '(
+          (bash-mode . bash-ts-mode)
+          (cc-mode . c-ts-mode)
+          (cc-mode . c++-ts-mode)
+          (python-mode . python-ts-mode)
+          (json-mode . json-ts-mode)
+          (css-mode . css-ts-mode)
+          (yaml-mode . yaml-ts-mode)
+          (js2-mode . js-ts-mode)
+          (typescript-mode . typescript-ts-mode)
+          )
         )
-      )
+  )
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/installation/
 ;;; lsp server
@@ -126,7 +128,6 @@
    ;; lsp-headerline-breadcrumb-enable-symbol-numbers t
    lsp-headerline-breadcrumb-icons-enable t
    lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols)
-
 
    lsp-enable-file-watchers nil
    lsp-enable-folding t
@@ -387,6 +388,8 @@
 ;;https://github.com/minad/cape
 (use-package cape
   :straight t
+  :defer t
+  :after corfu
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
   ;; Press C-c p ? to for help.
   :bind ("C-c c" . cape-prefix-map) ;; Alternative keys: M-p, M-+, ...
@@ -442,17 +445,21 @@
 ;;   )
 
 ;; lanugage
-(add-to-list 'load-path (expand-file-name "./config/lsp/" user-emacs-directory))
+(with-eval-after-load 'lsp-mode
+  (add-to-list 'load-path (expand-file-name "./config/lsp/" user-emacs-directory))
 
-;; lua
-(use-package lua-mode
-  :straight t
-  :defer t
-  :hook (lua-mode . lsp-deferred)
-  )
+  ;; lua
+  (use-package lua-mode
+    :straight t
+    :defer t
+    :hook (lua-mode . lsp-deferred)
+    )
 
-;; python
-(require 'wt-python)
+  ;; python
+  (require 'wt-python)
+  ;; (require 'wt-cpp)
+
+)
 
 (provide 'wt-lsp)
 

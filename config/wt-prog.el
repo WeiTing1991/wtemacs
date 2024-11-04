@@ -1,6 +1,5 @@
 ;;; wt-prog.el --- programming setting.| -*- lexical-binding: t -*-
 
-
 ;;; Code:
 ;; NOTE https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-prog.el
 
@@ -50,23 +49,23 @@
 
 ;; TODO:
 ;; https://www.flycheck.org/en/latest/user/installation.html
-(define-fringe-bitmap 'wt-flycheck-error-icon
-  (vector #b00000000
-          #b00011000  ;; Row 1
-          #b00111100  ;; Row 2
-          #b00111100  ;; Row 3
-          #b00011000  ;; Row 4
-          #b00000000  ;; Row 5
-          #b00000000  ;; Row 6
-          #b00000000  ;; Row 7
-          #b00000000  ;; Row 8
-          #b00000000  ;; Row 9
-          #b00000000  ;; Row 10
-          #b00000000  ;; Row 11
-          #b00000000  ;; Row 12
-          #b00000000  ;; Row 13
-          #b00000000  ;; Row 14
-          #b00000000)) ;; Row 15
+;; (define-fringe-bitmap 'wt-flycheck-error-icon
+;;   (vector #b00000000
+;;           #b00011000  ;; Row 1
+;;           #b00111100  ;; Row 2
+;;           #b00111100  ;; Row 3
+;;           #b00011000  ;; Row 4
+;;           #b00000000  ;; Row 5
+;;           #b00000000  ;; Row 6
+;;           #b00000000  ;; Row 7
+;;           #b00000000  ;; Row 8
+;;           #b00000000  ;; Row 9
+;;           #b00000000  ;; Row 10
+;;           #b00000000  ;; Row 11
+;;           #b00000000  ;; Row 12
+;;           #b00000000  ;; Row 13
+;;           #b00000000  ;; Row 14
+;;           #b00000000)) ;; Row 15
 
 (use-package flycheck
   :straight (:build t)
@@ -101,6 +100,8 @@
 
 (use-package editorconfig
   :straight t
+  :defer t
+  :hook (prog-mode . editorconfig-mode)
   )
 
 (use-package format-all

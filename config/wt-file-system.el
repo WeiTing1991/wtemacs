@@ -5,9 +5,9 @@
   :straight nil
   :commands (dired dired-jump)
   :bind (:map dired-mode-map
-         ("C-x C-i" . dired-toggle-read-only)
-         ("C-x C-j" . dired-jump)
-         )
+              ("C-x C-i" . dired-toggle-read-only)
+              ("C-x C-j" . dired-jump)
+              )
 
   :config
   (setq dired-dwim-target t)
@@ -66,14 +66,17 @@
 ;; https://github.com/Fuco1/dired-hacks
 (use-package dired-open
   :straight t
+  :defer t
   :after dired
   :commands (dired dired-jump)
   )
 
-(setq dired-hide-dotfiles-mode -1)
 (use-package dired-hide-dotfiles
   :straight t
+  :defer t
   :after dired
+  :init
+  (setq dired-hide-dotfiles-mode -1)
   ;; :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map (kbd "H") 'dired-hide-dotfiles-mode)
@@ -81,6 +84,7 @@
 
 (use-package dired-preview
   :straight t
+  :defer t
   :after dired
   :config
   (evil-define-key 'normal dired-mode-map (kbd "C-p") 'dired-preview-mode)
@@ -102,16 +106,19 @@
         )
   )
 
-  ;; Allow rsync from dired buffers
+;; Allow rsync from dired buffers
 (use-package dired-rsync
   :straight t
+  :defer t
   :after dired
   :bind (:map dired-mode-map
-              ("C-x C-r" . dired-rsync)))
+              ("C-x C-r" . dired-rsync))
+)
 
 ;; TODO move to bella color
 (use-package dired-rainbow
   :straight t
+  ;; :defer t
   :after dired
   :config
   (progn
@@ -142,7 +149,7 @@
   :straight nil
   :config
   :init (setq ibuffer-filter-group-name-face 'bold)
-)
+  )
 
 (use-package ibuffer-project
   :straight t
@@ -170,7 +177,7 @@
       (setq ibuffer-project-root-functions
             '((ibuffer-project-project-root . "Project")
               (file-remote-p . "Remote")))))
-)
+  )
 
 ;; TODO fork and do the pull request
 (use-package all-the-icons-ibuffer
@@ -185,41 +192,14 @@
   )
 
 ;; workspace
-(cond
- ((eq wt-os-type 'mac)
-  (defvar wt-tab-font-size 140)
-  )
- ((eq wt-os-type 'window)
-  (defvar wt-tab-font-size 100)
-  )
- )
-
-(set-face-attribute 'tab-bar nil
-                    :font "RobotoMono Nerd Font"
-                    :weight 'bold
-                    :background bella-color-black
-                    :foreground bella-color-white
-                    :height wt-tab-font-size)
-
-;; Customize the appearance of active tabs
-(set-face-attribute 'tab-bar-tab nil
-                    :background bella-color-black-blue
-                    :foreground bella-color-white
-                    :weight 'bold
-                    :box nil
-                    )
-;; Customize the appearance of inactive tabs
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :background bella-color-black
-                    :foreground bella-color-base
-                    :box nil
-                    )
 
 (use-package tabspaces
   :straight (:type git :host github :repo "mclear-tools/tabspaces")
-  :hook (after-init . tabspaces-mode) ;; use this only if you want the minor-mode loaded at startup.
-  ;; :commands (tabspaces-switch-or-create-workspace
-  ;;            tabspaces-open-or-create-project-and-workspace)
+  :defer t
+  ;; use this only if you want the minor-mode loaded at startup.
+  :hook (after-init . tabspaces-mode)
+  :commands (tabspaces-switch-or-create-workspace
+             tabspaces-open-or-create-project-and-workspace)
   :custom
   (tab-bar-show t)
 
@@ -234,7 +214,7 @@
   ;; sessions
   ;; (tabspaces-session t)
   ;; (tabspaces-session-auto-restore t)
-:init
+  :init
   ;; Filter Buffers for Consult-Buffer
   (with-eval-after-load 'consult
     ;; hide full buffer list (still available with "b" prefix)
@@ -248,14 +228,43 @@
             :state    #'consult--buffer-state
             :default  t
             :items    (lambda () (consult--buffer-query
-                             :predicate #'tabspaces--local-buffer-p
-                             :sort 'visibility
-                             :as #'buffer-name)))
+                                  :predicate #'tabspaces--local-buffer-p
+                                  :sort 'visibility
+                                  :as #'buffer-name)))
       "Set workspace buffer list for consult-buffer.")
     (add-to-list 'consult-buffer-sources 'consult--source-workspace))
 
   )
 
+(with-eval-after-load 'tabspaces
+  (cond
+   ((eq wt-os-type 'mac)
+    (defvar wt-tab-font-size 140)
+    )
+   ((eq wt-os-type 'windows)
+    (defvar wt-tab-font-size 100)
+    )
+   )
+  (set-face-attribute 'tab-bar nil
+                      :font "RobotoMono Nerd Font"
+                      :weight 'bold
+                      :background bella-color-black
+                      :foreground bella-color-white
+                      :height wt-tab-font-size)
 
+  ;; Customize the appearance of active tabs
+  (set-face-attribute 'tab-bar-tab nil
+                      :background bella-color-black-blue
+                      :foreground bella-color-white
+                      :weight 'bold
+                      :box nil
+                      )
+  ;; Customize the appearance of inactive tabs
+  (set-face-attribute 'tab-bar-tab-inactive nil
+                      :background bella-color-black
+                      :foreground bella-color-base
+                      :box nil
+                      )
+  )
 (provide 'wt-file-system)
 ;;; wt-file-system.el ends here

@@ -131,8 +131,8 @@
   )
 
 ;; cursor
-(custom-set-faces
- '(cursor ((t (:background "#eb6f92" :foreground "white")))))
+;; (custom-set-faces
+;;  '(cursor ((t (:background "#eb6f92" :foreground "white")))))
 
 (use-package rainbow-mode
   :straight t
