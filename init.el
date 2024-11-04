@@ -40,23 +40,31 @@
 
 (defun wt/set-font-and-background ()
   ;; Font and background
-  (cond ;; macOS configuration
-   ((eq wt-os-type 'mac)  ;; 'darwin' is for macOS
+  (cond
+   ((eq wt-os-type 'mac)
     (defvar wt-default-font-size 140)
     (defvar wt-default-variable-font-size 140)
     (defvar wt-frame-transparency '(98 . 90))
 
+    (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
     (set-face-attribute 'fixed-pitch nil :font "SauceCodePro Nerd Font" :height wt-default-variable-font-size :weight 'regular)
     (set-face-attribute 'variable-pitch nil :font "SauceCodePro Nerd Font" :height wt-default-variable-font-size :weight 'regular)
+
+  (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
+  (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
     )
-   ;; Windows configuration
-   ((eq wt-os-type 'window)  ;; 'windows-nt' is for Windows
+   ((eq wt-os-type 'window)
     (defvar  wt-default-font-size 100)
     (defvar  wt-default-variable-font-size 100)
     (defvar  wt-frame-transparency '(95 . 90))
     (setq inhibit-compacting-font-caches 1)
+
+    (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
     (set-face-attribute 'fixed-pitch nil :font "SauceCodePro NF" :height wt-default-variable-font-size :weight 'regular)
     (set-face-attribute 'variable-pitch nil :font "SauceCodePro NF" :height wt-default-variable-font-size :weight 'regular)
+
+  (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
+  (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
     )
    )
 
@@ -64,11 +72,11 @@
     (set-frame-font "RobotoMono Nerd Font" nil t))
 
   ;; Set the font
-  (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
+  ;; (set-face-attribute 'default nil :font "RobotoMono Nerd Font" :height wt-default-font-size :weight 'medium)
 
   ;; Set transparency
-  (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
-  (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
+  ;; (set-frame-parameter (selected-frame) 'alpha wt-frame-transparency)
+  ;; (add-to-list 'default-frame-alist `(alpha . ,wt-frame-transparency))
 
 )
 
@@ -167,14 +175,14 @@
 (require 'wt-base)
 (require 'wt-core)
 (require 'wt-ui)
-(require 'wt-cmd-system)
-(require 'wt-term)
-(require 'wt-file-system)
-(require 'wt-lsp)
-(require 'wt-prog)
-(require 'wt-app)
-(require 'wt-org)
-(require 'wt-git-tool)
+;;(require 'wt-cmd-system)
+;;(require 'wt-term)
+;;(require 'wt-file-system)
+;;(require 'wt-lsp)
+;;(require 'wt-prog)
+;;(require 'wt-app)
+;;(require 'wt-org)
+;;(require 'wt-git-tool)
 
 ;; TODO
 ;; (require 'wt-md)
