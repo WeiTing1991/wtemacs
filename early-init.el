@@ -19,22 +19,18 @@
 ;; Performance
 (setq package-enable-at-startup nil)
 
-(defvar my-computer-has-smaller-memory-p nil
-  "Installing&Compiling many packages could cost too much memory.")
+(setq gc-cons-threshold (* 512 1024 1024))
+(setq gc-cons-threshold most-positive-fixnum)
 
-(setq gc-cons-threshold (* 1024 1024 1024))
-
-(unless my-computer-has-smaller-memory-p
-  (setq gc-cons-percentage 0.6)
-  (setq gc-cons-threshold most-positive-fixnum))
-
-(add-hook 'emacs-startup-hook
-    (lambda ()
-      (setq gc-cons-threshold (* 256 1024 1024)
-      gc-cons-percentage 0.1)))
+;; (add-hook 'emacs-startup-hook
+;;     (lambda ()
+;;       (setq gc-cons-threshold (* 512 1024 1024)
+;;             gc-cons-percentage 1.0
+;;             )
+;;       )
+;;     )
 
 (setq idle-update-delay 0.500)
-
 
 (setq native-comp-async-report-warnings-errors 'silent)
 
@@ -47,6 +43,7 @@
 ;; less noise when compiling elisp
 (setq byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local))
 (setq native-comp-async-report-warnings-errors nil)
+
 ;; (setq byte-compile-warnings '(not obsolete))
 ;; (setq warning-suppress-log-types '((comp) (bytecomp)))
 
@@ -56,10 +53,21 @@
 (setq frame-resize-pixelwise t)
 (pixel-scroll-precision-mode 1) ;; enable smooth scrolling
 
-;; Faster to disable these here (before they've been initialized)
+;; memory collection
+;; TODO: check it
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
 
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold (* 128 1024 1024)))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+;; Faster to disable these here (before they've been initialized)
 ;; Minimal UI
 ;; Define a list of new frame parameters
+(setq-default mode-line-format nil)
 (setq wt-frame-params
       '(
         (min-height . 1)
@@ -101,7 +109,6 @@
       )
 
 
-;; (setq-default mode-line-format nil)
 
 (provide 'early-init)
 ;;; early-init.el ends here

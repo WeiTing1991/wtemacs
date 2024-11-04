@@ -175,6 +175,7 @@
 (require 'wt-app)
 (require 'wt-org)
 (require 'wt-git-tool)
+
 ;; TODO
 ;; (require 'wt-md)
 
@@ -187,7 +188,7 @@
 ;; (setq garbage-collection-messages t)
 (defun my-cleanup-gc ()
   "Clean up gc."
-  (setq gc-cons-threshold (* 32 1024 1024))
+  (setq gc-cons-threshold (* 512 1024 1024))
   (setq gc-cons-percentage 0.1)
   (garbage-collect))
 
